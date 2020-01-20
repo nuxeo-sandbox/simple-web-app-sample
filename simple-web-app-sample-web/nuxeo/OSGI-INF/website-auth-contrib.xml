@@ -1,0 +1,18 @@
+<component name="org.nuxeo.sample.website.authentication.polymer.website">
+
+  <extension point="startURL" target="org.nuxeo.ecm.platform.ui.web.auth.service.PluggableAuthenticationService">
+    <startURLPattern>
+      <patterns>
+        <pattern>website/</pattern>
+      </patterns>
+    </startURLPattern>
+  </extension>
+
+  <!-- Uncomment this to allow browsing application without authentication
+  <extension point="openUrl" target="org.nuxeo.ecm.platform.ui.web.auth.service.PluggableAuthenticationService">
+    <openUrl name="website">
+      <grantPattern>website</grantPattern>
+    </openUrl>
+  </extension>
+  -->
+</component>

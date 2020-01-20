@@ -1,0 +1,9 @@
+Bundle-ActivationPolicy: lazy
+Bundle-ClassPath: .
+Manifest-Version: 1.0
+Bundle-Vendor: org.nuxeo.sample.website
+Bundle-Version: 1.0.0
+Bundle-Name: simple-web-app-sample-web
+Bundle-ManifestVersion: 2
+Bundle-SymbolicName: org.nuxeo.sample.website.simple-web-app-sample-web;singleton=true
+Nuxeo-Component: OSGI-INF/website-auth-contrib.xml

@@ -1,0 +1,82 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../bower_components/nuxeo-elements/nuxeo-page-provider.html">
+<link rel="import" href="../bower_components/nuxeo-ui-elements/actions/nuxeo-download-button.html">
+<link rel="import" href="../bower_components/nuxeo-ui-elements/widgets/nuxeo-input.html">
+<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+
+
+<dom-module id="my-app">
+  <template>
+    <style include="iron-flex iron-flex-alignment">
+      :host {
+        --app-primary-color: #4285f4;
+        --app-secondary-color: black;
+
+        display: block;
+      }
+
+      .main {
+        width : 90%;
+        margin : 0 auto;
+      }
+
+      nuxeo-input {
+        margin-top: 64px;
+        margin-bottom: 32px;
+        max-width: 300px;
+      }
+
+      .vcenter {
+        align-items: center;
+      }
+
+    </style>
+
+    <nuxeo-page-provider id="pp" auto page="1" provider="website-search" page-size="25" params="{{params}}"
+                         current-page="{{documents}}">
+    </nuxeo-page-provider>
+
+    <div class="main">
+      <h2>Public Documents</h2>
+      <nuxeo-input placeholder="Search for something" value="{{fulltext}}"></nuxeo-input>
+      <template is="dom-repeat" items="{{documents}}">
+        <div class="layout horizontal vcenter">
+          <div>[[item.properties.file:content.name]]</div>
+          <nuxeo-download-button document="[[item]]"></nuxeo-download-button>
+        </div>
+      </template>
+    </div>
+
+
+  </template>
+
+  <script>
+    class MyApp extends Polymer.Element {
+      static get is() { return 'my-app'; }
+
+      static get properties() {
+        return {
+          fulltext: {
+            type: String,
+            observer: "_onFulltextChanged"
+          },
+
+          params: {
+            type: Object,
+            value: {}
+          }
+
+        };
+      }
+
+      _onFulltextChanged(fulltext) {
+        this.params.system_fulltext = fulltext;
+        this.$.pp.fetch();
+      }
+
+    }
+
+    window.customElements.define(MyApp.is, MyApp);
+  </script>
+</dom-module>
